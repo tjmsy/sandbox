@@ -22,8 +22,8 @@ const map = new maplibregl.Map({
       },
     ],
   },
-  center: [138.3816, 35.8780],
-  zoom: 14,
+  center: [138.7307, 35.3595],
+  zoom: 9,
   hash: true,
 });
 
@@ -41,20 +41,21 @@ map.on("load", () => {
   });
   demSource.setupMaplibre(maplibregl);
 
-  const initialContourTiles = demSource.contourProtocolUrl({
-    thresholds: {},
-    contourLayer: "contours",
-    elevationKey: "ele",
-    levelKey: "level",
-    extent: 4096,
-    buffer: 1,
-  });
-
   map.addSource("contour-source", {
     type: "vector",
-    tiles: [initialContourTiles],
+    tiles: [
+      demSource.contourProtocolUrl({
+        thresholds: {},
+        contourLayer: "contours",
+        elevationKey: "ele",
+        levelKey: "level",
+        extent: 4096,
+        buffer: 1,
+      }),
+    ],
     maxzoom: 19,
-    attribution: "<a href='https://tiles.gsj.jp/tiles/elev/tiles.html#h_land' target='_blank'>産総研 シームレス標高タイル(陸域統合DEM)</a>"
+    attribution:
+      "<a href='https://tiles.gsj.jp/tiles/elev/tiles.html#h_land' target='_blank'>産総研 シームレス標高タイル(陸域統合DEM)</a>",
   });
 
   map.addLayer({
@@ -73,5 +74,8 @@ map.on("load", () => {
   });
 
   map.addControl(new GeoJsonExportControl(), "top-left");
-  map.addControl(new ContourIntervalControl(demSource, defaultContourInterval), "top-left");
+  map.addControl(
+    new ContourIntervalControl(demSource, defaultContourInterval),
+    "top-left"
+  );
 });
