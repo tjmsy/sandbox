@@ -35,7 +35,7 @@ const map = new maplibregl.Map({
       },
     ],
   },
-  center: [0,0],
+  center: [0, 0],
   zoom: 0,
   hash: true,
 });
@@ -70,6 +70,8 @@ map.on("load", () => {
   map.addSource("usgs", {
     type: "geojson",
     data: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson",
+    attribution:
+      "<a href='https://earthquake.usgs.gov/' target='_blank'>  Earthquake data © U.S. Geological Survey </a>",
   });
 
   map.addLayer({
@@ -77,7 +79,15 @@ map.on("load", () => {
     type: "circle",
     source: "usgs",
     paint: {
-      "circle-radius": ["interpolate", ["linear"], ["get", "mag"], 0, 0.1, 7, 8],
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["get", "mag"],
+        0,
+        0.1,
+        7,
+        8,
+      ],
       "circle-opacity": 0,
       "circle-stroke-color": "red",
       "circle-stroke-width": 1,
