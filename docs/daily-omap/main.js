@@ -1,4 +1,4 @@
-import { isomizer } from "https://cdn.jsdelivr.net/gh/tjmsy/maplibre-gl-isomizer@0.3/src/isomizer.js";
+import { isomizer } from "https://cdn.jsdelivr.net/gh/tjmsy/maplibre-gl-isomizer@0.3.3/src/isomizer.js";
 
 const query = new URLSearchParams(window.location.search);
 
