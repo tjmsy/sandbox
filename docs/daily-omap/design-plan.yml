@@ -1,0 +1,504 @@
+sources:
+  ofm:
+    type: vector
+    url: https://tiles.openfreemap.org/planet
+  gsivt:
+    type: vector
+    attribution: "<a href='https://maps.gsi.go.jp/development/vt.html'>国土地理院ベクトルタイル</a>"
+    tiles:
+      - "https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf"
+    maxzoom: 16
+  fude:
+    type: vector
+    attribution: "<a href='https://github.com/optgeo/ag?tab=readme-ov-file#%E5%87%BA%E5%85%B8' target='_blank'>筆ポリゴン(農林水産省)</a>"
+    tiles:
+      - "https://optgeo.github.io/ag-tiles/zxy/{z}/{x}/{y}.pbf"
+    minzoom: 11
+    maxzoom: 13
+  osm-vector:
+    type: vector
+    tiles:
+      - https://vector.openstreetmap.org/shortbread_v1/{z}/{x}/{y}.mvt
+    maxzoom: 14
+
+rules:
+  - symbol_id:
+      - background
+  - symbol_id:
+      - 101-contour
+    links:
+      - source: contour-source
+        source-layer: contours
+  - symbol_id:
+      - 208-boulder-field
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - all
+          - - in
+            - class
+            - rock
+          - - in
+            - subclass
+            - scree
+  - symbol_id:
+      - 213-sandy-ground
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - in
+          - class
+          - sand
+  - symbol_id:
+      - 214-bare-rock
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - "=="
+          - subclass
+          - bare_rock
+  - symbol_id:
+      - 301-uncrossable-water
+    links:
+      - source: gsivt
+        source-layer: waterarea
+  - symbol_id:
+      - 301-1-water-boundary
+    links:
+      - source: gsivt
+        source-layer: coastline
+        filter:
+      - source: gsivt
+        source-layer: river
+        filter:
+          - in
+          - ftCode
+          - 5201
+          - 5202
+          - 5203
+      - source: gsivt
+        source-layer: lake
+        filter:
+          - in
+          - ftCode
+          - 5231
+          - 5232
+          - 5233
+  - symbol_id:
+      - 304-crossable-watercourse
+    links:
+      - source: gsivt
+        source-layer: river
+        filter:
+          - in
+          - ftCode
+          - 5301
+  - symbol_id:
+      - 306-minor-seasonal-water-channel
+    links:
+      - source: gsivt
+        source-layer: river
+        filter:
+          - in
+          - ftCode
+          - 5302
+  - symbol_id:
+      - 307-uncrossable-marsh
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - in
+          - class
+          - wetland
+          - marsh
+  - symbol_id:
+      - 401-open-land
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - all
+          - - in
+            - class
+            - grass
+          - - "!="
+            - subclass
+            - golf_course
+          - - "!="
+            - subclass
+            - scrub
+          - - "!="
+            - subclass
+            - park
+          - - "!="
+            - subclass
+            - garden
+          - - "!="
+            - subclass
+            - meadow
+          - - "!="
+            - subclass
+            - grassland
+          - - "!="
+            - subclass
+            - heath
+          - - "!="
+            - subclass
+            - logging
+  - symbol_id:
+      - 403-rough-open-land
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - in
+          - subclass
+          - meadow
+          - grassland
+          - heath
+          - logging
+  - symbol_id:
+      - 405-forest
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - any
+          - - in
+            - class
+            - forest
+            - wood
+            - park
+            - tree
+          - - in
+            - subclass
+            - park
+  - symbol_id:
+      - 408-vegetation-walk
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - any
+          - - ==
+            - subclass
+            - scrub
+          - - ==
+            - wood:density
+            - dense
+  - symbol_id:
+      - 412-cultivated-land
+    links:
+      - source: fude
+        source-layer: farmland
+  - symbol_id:
+      - 413-orchard
+    links:
+      - source: ofm
+        source-layer: landcover
+        filter:
+          - in
+          - subclass
+          - orchard
+          - vineyard
+  - symbol_id:
+      - 501-paved-area
+    links:
+      - source: ofm
+        source-layer: landuse
+        filter:
+          - in
+          - class
+          - pitch
+          - track
+          - playground
+      - source: osm-vector
+        source-layer: street_polygons
+        filter:
+          - all
+          - - "=="
+            - tunnel
+            - false
+          - - "=="
+            - kind
+            - pedestrian
+  - symbol_id:
+      - 501-paved-area-casing
+    links:
+      - source: ofm
+        source-layer: landuse
+        filter:
+          - in
+          - class
+          - pitch
+          - track
+          - playground
+      - source: osm-vector
+        source-layer: street_polygons
+        filter:
+          - all
+          - - "=="
+            - tunnel
+            - false
+          - - "=="
+            - kind
+            - pedestrian
+  - symbol_id:
+      - 502-1-aeroway-taxiway-center
+      - 502-2-aeroway-taxiway-outline
+    links:
+      - source: ofm
+        source-layer: aeroway
+        filter:
+          - all
+          - - "=="
+            - class
+            - taxiway
+  - symbol_id:
+      - 502-1-aeroway-runway-center
+      - 502-2-aeroway-runway-outline
+    links:
+      - source: ofm
+        source-layer: aeroway
+        filter:
+          - all
+          - - "=="
+            - class
+            - runway
+  - symbol_id:
+      - 502-1-highway-minor-center
+      - 502-2-highway-minor-outline
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "!="
+            - brunnel
+            - tunnel
+          - - in
+            - class
+            - minor
+            - service
+  - symbol_id:
+      - 502-1-highway-secondary-tertiary-center
+      - 502-2-highway-secondary-tertiary-outline
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "!="
+            - brunnel
+            - tunnel
+          - - in
+            - class
+            - secondary
+            - tertiary
+  - symbol_id:
+      - 502-1-highway-primary-center
+      - 502-2-highway-primary-outline
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "!="
+            - brunnel
+            - tunnel
+          - - in
+            - class
+            - primary
+  - symbol_id:
+      - 502-1-highway-trunk-center
+      - 502-2-highway-trunk-outline
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "!="
+            - brunnel
+            - tunnel
+          - - in
+            - class
+            - trunk
+  - symbol_id:
+      - 502-1-highway-motorway-center
+      - 502-2-highway-motorway-outline
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "!="
+            - brunnel
+            - tunnel
+          - - in
+            - class
+            - motorway
+  - symbol_id:
+      - 504-vehicle-track
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "=="
+            - class
+            - track
+          - - "!in"
+            - brunnel
+            - tunnel
+  - symbol_id:
+      - 505-footpath
+    links:
+      - source: osm-vector
+        source-layer: streets
+        filter:
+          - all
+          - - in
+            - kind
+            - pedestrian
+            - footway
+            - path
+          - - "=="
+            - tunnel
+            - false
+  - symbol_id:
+      - 509-1-railway-center
+      - 509-2-railway-outline
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "=="
+            - class
+            - rail
+          - - "!="
+            - brunnel
+            - tunnel
+  - symbol_id:
+      - 520-out-of-bounds
+    links:
+      - source: ofm
+        source-layer: landuse
+        filter:
+          - in
+          - class
+          - residential
+          - neighbourhood
+          - suburb
+          - commercial
+          - industrial
+          - cemetery
+          - hospital
+          - school
+          - railway
+          - retail
+          - military
+          - quarter
+  - symbol_id:
+      - 521-building
+    links:
+      - source: gsivt
+        source-layer: building
+        filter:
+          - in
+          - ftCode
+          - 3101
+          - 3102
+          - 3103
+  - symbol_id:
+      - 522-canopy
+    links:
+      - source: gsivt
+        source-layer: building
+        filter:
+          - in
+          - ftCode
+          - 3111
+          - 3112
+  - symbol_id:
+      - 532-1-stairway-center
+      - 532-2-stairway-outline
+    links:
+      - source: ofm
+        source-layer: transportation
+        filter:
+          - all
+          - - "=="
+            - class
+            - path
+          - - "!="
+            - brunnel
+            - tunnel
+          - - "=="
+            - subclass
+            - steps
+  - symbol_id:
+      - 999-label-poi-train-station
+    links:
+      - source: ofm
+        source-layer: poi
+        filter:
+          - "=="
+          - class
+          - railway
+  - symbol_id:
+      - 999-label-poi-other
+    links:
+      - source: ofm
+        source-layer: poi
+        filter:
+          - "!="
+          - class
+          - railway
+  - symbol_id:
+      - 999-label-transportation
+    links:
+      - source: ofm
+        source-layer: transportation_name
+  - symbol_id:
+      - 999-label-place-country
+    links:
+      - source: ofm
+        source-layer: place
+        filter:
+          - all
+          - - "=="
+            - class
+            - country
+  - symbol_id:
+      - 999-label-place-city
+    links:
+      - source: ofm
+        source-layer: place
+        filter:
+          - all
+          - - "=="
+            - class
+            - city
+  - symbol_id:
+      - 999-label-place-other
+    links:
+      - source: ofm
+        source-layer: place
+        filter:
+          - all
+          - - "!in"
+            - class
+            - city
+            - state
+            - country
+            - continent
+  - symbol_id:
+      - 999-line-admin-boundary
+    links:
+      - source: ofm
+        source-layer: boundary

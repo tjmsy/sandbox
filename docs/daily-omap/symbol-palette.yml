@@ -1,0 +1,691 @@
+symbol-palette:
+  - symbol_id: background
+    type: background
+    minzoom: 8
+    paint:
+      background-color: "#9BBB1D"
+    property:
+      color-key: lower.yellow_green
+  - symbol_id: 101-contour
+    type: line
+    layout:
+      line-join: round
+      line-cap: round
+    paint:
+      line-width:
+        - match
+        - - get
+          - level
+        - 1
+        - 1
+        - 0.56
+    property:
+      color-key: upper.brown
+  - symbol_id: 202-cliff
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.38
+  - symbol_id: 206-gigantic-boulder
+    type: fill
+    paint:
+    property:
+      color-key: upper.black
+  - symbol_id: 208-boulder-field
+    type: fill
+    paint:
+      fill-pattern: boulder-field-pattern
+    property:
+      color-key: lower.white
+  - symbol_id: 213-sandy-ground
+    type: fill
+    paint:
+      fill-pattern: sandy-ground-pattern
+    property:
+      color-key: lower.yellow_50%
+  - symbol_id: 214-bare-rock
+    type: fill
+    paint:
+    property:
+      color-key: upper.black_25%
+  - symbol_id: 301-uncrossable-water
+    type: fill
+    paint:
+    property:
+      color-key: upper.blue
+  - symbol_id: 301-1-water-boundary
+    type: line
+    layout:
+      line-join: bevel
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black_water_boundary
+      line-width(mm): 0.54
+  - symbol_id: 302-shallow-water
+    type: fill
+    paint:
+    property:
+      color-key: upper.blue_50%
+  - symbol_id: 304-crossable-watercourse
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.blue
+      line-width(mm): 0.45
+  - symbol_id: 304-stream
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.3
+        - - zoom
+        - 13
+        - 0.5
+        - 20
+        - 6
+    property:
+      color-key: upper.blue
+  - symbol_id: 304-river
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 10
+        - 0.8
+        - 20
+        - 6
+    property:
+      color-key: upper.blue
+  - symbol_id: 305-small-crossable-watercourse
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.blue
+      line-width(mm): 0.27
+  - symbol_id: 306-minor-seasonal-water-channel
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.blue
+      line-width(mm): 0.27
+      line-dasharray(mm):
+        - 1.88
+        - 0.38
+  - symbol_id: 307-uncrossable-marsh
+    type: fill
+    paint:
+      fill-pattern: marsh-pattern
+    property:
+      color-key: upper.blue
+  - symbol_id: 401-open-land
+    type: fill
+    paint:
+    property:
+      color-key: lower.yellow
+  - symbol_id: 403-rough-open-land
+    type: fill
+    paint:
+    property:
+      color-key: lower.yellow_50%
+  - symbol_id: 405-forest
+    type: fill
+    paint:
+    property:
+      color-key: lower.white
+  - symbol_id: 406-vegetation-slow-running
+    type: fill
+    paint:
+    property:
+      color-key: lower.green_30%
+  - symbol_id: 408-vegetation-walk
+    type: fill
+    paint:
+    property:
+      color-key: lower.green_60%
+  - symbol_id: 410-vegetation-fight
+    type: fill
+    paint:
+    property:
+      color-key: lower.green_100%
+  - symbol_id: 412-cultivated-land
+    type: fill
+    paint:
+      fill-pattern: cultivated-land-pattern
+    property:
+      color-key: lower.yellow
+  - symbol_id: 413-orchard
+    type: fill
+    paint:
+      fill-pattern: orchard-pattern
+    property:
+      color-key: lower.yellow
+  - symbol_id: 415-distinct-cultivation-boundary
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.21
+  - symbol_id: 501-paved-area
+    type: fill
+    paint:
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 501-paved-area-casing
+    type: line
+    paint:
+    property:
+      color-key: upper.black_casing
+      line-width(mm): 0.5
+  - symbol_id: 502-1-wide-road-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.brown_50%
+      line-width(mm): 0.45
+  - symbol_id: 502-2-wide-road-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.21
+    line-gap(mm): 0.33
+  - symbol_id: 502-1-aeroway-taxiway-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.5
+        - - zoom
+        - 11
+        - 1
+        - 17
+        - 10
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 502-2-aeroway-taxiway-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.5
+        - - zoom
+        - 11
+        - 2
+        - 17
+        - 12
+    property:
+      color-key: upper.black_casing
+  - symbol_id: 502-1-aeroway-runway-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.5
+        - - zoom
+        - 11
+        - 4
+        - 17
+        - 50
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 502-2-aeroway-runway-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.5
+        - - zoom
+        - 11
+        - 5
+        - 17
+        - 55
+    property:
+      color-key: upper.black_casing
+  - symbol_id: 502-1-highway-minor-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 13.5
+        - 0
+        - 14
+        - 2.5
+        - 20
+        - 12.5
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 502-2-highway-minor-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 12
+        - 0.5
+        - 13
+        - 1
+        - 14
+        - 3.5
+        - 20
+        - 14
+    property:
+      color-key: upper.black_casing
+  - symbol_id: 502-1-highway-secondary-tertiary-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 6.5
+        - 0
+        - 8
+        - 0.5
+        - 20
+        - 13
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 502-2-highway-secondary-tertiary-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 8
+        - 1.5
+        - 20
+        - 17
+    property:
+      color-key: upper.black_casing
+  - symbol_id: 502-1-highway-primary-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 8.5
+        - 0
+        - 9
+        - 0.5
+        - 20
+        - 18
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 502-2-highway-primary-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 7
+        - 0
+        - 8
+        - 0.6
+        - 9
+        - 1.5
+        - 20
+        - 22
+    property:
+      color-key: upper.black_casing
+  - symbol_id: 502-1-highway-trunk-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 6.5
+        - 0
+        - 7
+        - 0.5
+        - 20
+        - 18
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 502-2-highway-trunk-outline
+    name: "Frame: Wide road"
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 5
+        - 0
+        - 6
+        - 0.6
+        - 7
+        - 1.5
+        - 20
+        - 22
+    property:
+      color-key: upper.black_casing
+  - symbol_id: 502-1-highway-motorway-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 6.5
+        - 0
+        - 7
+        - 0.5
+        - 20
+        - 18
+    property:
+      color-key: upper.brown_50%
+  - symbol_id: 502-2-highway-motorway-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+      line-width:
+        - interpolate
+        - - exponential
+          - 1.2
+        - - zoom
+        - 4
+        - 0
+        - 5
+        - 0.4
+        - 6
+        - 0.6
+        - 7
+        - 1.5
+        - 20
+        - 22
+    property:
+      color-key: upper.black_casing
+  - symbol_id: 503-road
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.53
+  - symbol_id: 504-vehicle-track
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.53
+      line-dasharray(mm):
+        - 4.5
+        - 0.38
+  - symbol_id: 505-footpath
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black_footpath
+      line-width(mm): 0.38
+      line-dasharray(mm):
+        - 3
+        - 0.38
+  - symbol_id: 506-small-footpath
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.27
+      line-dasharray(mm):
+        - 1.5
+        - 0.38
+  - symbol_id: 508-narrow-ride
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.21
+      line-dasharray(mm):
+        - 3
+        - 0.38
+  - symbol_id: 509-1-railway-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.white
+      line-width(mm): 0.3
+      line-dasharray(mm):
+        - 1.0
+        - 1.5
+  - symbol_id: 509-2-railway-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black
+      line-width(mm): 0.7
+  - symbol_id: 520-out-of-bounds
+    type: fill
+    paint:
+    property:
+      color-key: lower.yellow_green
+  - symbol_id: 521-building
+    type: fill
+    paint:
+    property:
+      color-key: upper.black_building
+  - symbol_id: 522-canopy
+    type: fill
+    paint:
+    property:
+      color-key: upper.black_20%
+  - symbol_id: 532-1-stairway-center
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.white_stairway
+      line-width(mm): 0.8
+      line-dasharray(mm):
+        - 0.20
+        - 0.08
+  - symbol_id: 532-2-stairway-outline
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: upper.black_stairway
+      line-width(mm): 1.0
+  - symbol_id: 601-magnetic-north-line
+    type: line
+    layout:
+      line-join: miter
+      line-cap: butt
+    paint:
+    property:
+      color-key: overlay.black
+      line-width(mm): 0.15
+  - symbol_id: 999-label-poi-train-station
+    type: symbol
+    layout:
+      text-size: 14
+      text-letter-spacing: 0.1
+      text-field: "{name:ja}"
+    paint:
+      text-color: "#000000"
+      text-halo-color: "#ffffff"
+      text-halo-width: 1.2
+    property:
+      color-key: overlay.black
+  - symbol_id: 999-label-poi-other
+    type: symbol
+    layout:
+      text-size: 8
+      text-letter-spacing: 0.1
+      text-field: "{name:nonlatin}"
+    paint:
+      text-color: "#333333"
+      text-halo-color: "#ffffff"
+      text-halo-width: 1.0
+    property:
+      color-key: overlay.black
+  - symbol_id: 999-label-transportation
+    type: symbol
+    layout:
+      symbol-placement: line
+      text-size: 9
+      text-letter-spacing: 0.1
+      text-field: "{name:nonlatin}"
+    paint:
+      text-color: "#000000"
+      text-halo-color: "#ffffff"
+      text-halo-width: 1.2
+    property:
+      color-key: overlay.black
+  - symbol_id: 999-label-place-country
+    type: symbol
+    layout:
+      text-size: 15
+      text-field: "{name:ja}"
+    paint:
+      text-color: "#000000"
+      text-halo-color: "#ffffff"
+      text-halo-width: 1.2
+    property:
+      color-key: overlay.black
+  - symbol_id: 999-label-place-city
+    type: symbol
+    layout:
+      text-size: 15
+      text-field: "{name:ja}"
+    paint:
+      text-color: "#000000"
+      text-halo-color: "#ffffff"
+      text-halo-width: 1.2
+    property:
+      color-key: overlay.black
+  - symbol_id: 999-label-place-other
+    type: symbol
+    layout:
+      text-size: 12
+      text-field: "{name:nonlatin}"
+    paint:
+      text-color: "#000000"
+      text-halo-color: "#ffffff"
+      text-halo-width: 1.2
+    property:
+      color-key: overlay.black
+  - symbol_id: 999-line-admin-boundary
+    type: line
+    paint:
+      line-width: 2
+      line-dasharray: [4,1]
+    property:
+      color-key: overlay.admin_boundary_red

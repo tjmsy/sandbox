@@ -1,0 +1,79 @@
+color-palette:
+  - lower:
+    - yellow_green:
+        hex: "#D7E3A4"
+        description: "Yellow green for out-of-bounds area"
+    - white:
+        hex: "#FFFFFF"
+        description: "White for forest"
+    - green_30%:
+        hex: "#C5FFC4"
+        description: "Green 30% for vegetation, slow running"
+    - green_60%:
+        hex: "#8AFF74"
+        description: "Green 60% for vegetation, walk"
+    - green_100%:
+        hex: "#3FFF17"
+        description: "Green for vegetation, fight"
+    - yellow_50%:
+        hex: "#FFDD9A"
+        description: "Yellow 50% for rough open land"
+    - yellow:
+        hex: "#FFBA35"
+        description: "Yellow for open land"
+  - upper:
+    - brown:
+        hex: "#D25C00"
+        description: "Brown for contour lines and land features"
+    - green:
+        hex: "#3FFF17"
+        description: "Green for point vegetation features"
+    - black_water_boundary:
+        hex: "#000000"
+        description: "Black for water boundary"
+    - black_footpath:
+        hex: "#000000"
+        description: "Black for footpath"
+    - blue_50%:
+        hex: "#4DFFFF"
+        description: "Blue for shallow water"
+    - blue:
+        hex: "#00FFFF"
+        description: "Blue for water features"
+    - black_casing:
+        hex: "#000000"
+        description: "Black for road casing"
+    - brown_50%:
+        hex: "#E8AD80"
+        description: "Brown 50% for road and paved area"
+    - black_25%:
+        hex: "#BFBFBF"
+        description: "Black 25% for bare rock"
+    - black_20%:
+        hex: "#CCCCCC"
+        description: "Black 20% for canopy"
+    - black:
+        hex: "#000000"
+        description: "Black for black map symbols"
+    - black_stairway:
+        hex: "#595959"
+        description: "Black 65% for stairway"
+    - white_stairway:
+        hex: "#FFFFFF"
+        description: "White for stairway"
+    - black_building:
+        hex: "#777777"
+        description: "Black 65% for building"
+    - white:
+        hex: "#FFFFFF"
+        description: "White for railway"
+  - overlay:
+    - admin_boundary_red:
+        hex: "#ED1A3D"
+        description: "for admin boundary" 
+    - black:
+        hex: "#000000"
+        description: "Black for technical symbols and optional additional information"
+    - purple:
+        hex: "#A824FF"
+        description: "Purple for course planning symbols" 

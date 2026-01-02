@@ -1,0 +1,11 @@
+image-palette:
+  - id: cultivated-land-pattern
+    url: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles/images/isom2017/cultivated-land-pattern.svg"
+  - id: sandy-ground-pattern
+    url: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles/images/isom2017/sandy-ground-pattern.svg"
+  - id: boulder-field-pattern 
+    url: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles/images/isom2017/boulder-field-pattern.svg"
+  - id: marsh-pattern
+    url: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles/images/isom2017/marsh-pattern.svg"
+  - id: orchard-pattern
+    url: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles/images/isom2017/orchard-pattern.svg"

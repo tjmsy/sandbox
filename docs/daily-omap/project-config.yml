@@ -1,0 +1,19 @@
+project:
+  name: "OpenFreeMap to ISOM2017-2"
+  description: "OpenFreeMap to ISOM2017-2"
+
+map:
+  center: [139.7,35.69]
+  zoom: 15
+  bearing: 0
+  pitch: 0
+
+resources:
+  design-plan:
+    file: "./design-plan.yml"
+  symbol-palette:
+    file: "./symbol-palette.yml"
+  color-palette:
+    file: "./color-palette.yml"
+  image-palette:
+    file: "./image-palette.yml"

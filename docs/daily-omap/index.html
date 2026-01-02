@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O-style daily city map</title>
+    <link
+      href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/qchizu/maplibre-contour-adding-Numerical-PNG-Tile@main/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/togeojson@0.16.0/togeojson.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@watergis/maplibre-gl-export@4.1.0/dist/maplibre-gl-export.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@watergis/maplibre-gl-export@4.1.0/dist/maplibre-gl-export.umd.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/gh/tjmsy/maplibre-gl-scale-ratio@latest/src/maplibre-gl-scale-ratio.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.5.0/dist/maplibre-gl-geocoder.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.5.0/dist/maplibre-gl-geocoder.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
