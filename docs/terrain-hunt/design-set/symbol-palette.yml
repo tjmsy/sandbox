@@ -576,11 +576,6 @@ symbol-palette:
     paint:
     property:
       color-key: lower.yellow_green
-  - symbol_id: 521-building
-    type: fill
-    paint:
-    property:
-      color-key: upper.black_65%
   - symbol_id: 520-out-of-bounds-purple
     type: fill
     paint:
