@@ -11,7 +11,7 @@ resources:
   design-plan:
     file: "https://cdn.jsdelivr.net/gh/tjmsy/sandbox/docs/terrain-hunt/design-set/design-plan.yml"
   symbol-palette:
-    file: "https://cdn.jsdelivr.net/gh/tjmsy/sandbox/docs/terrain-hunt/design-set/symbol-palette.yml"
+    file: "https://cdn.jsdelivr.net/gh/tjmsy/sandbox@0.1/docs/terrain-hunt/design-set/symbol-palette.yml"
   color-palette:
     file: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles@0.4/palettes/isom2017/color-palette.yml"
   image-palette:
