@@ -1,0 +1,18 @@
+project:
+  id: "terrain-hunt"
+  name: "Terrain Hunt"
+  description: "Terrain hunting assistant tool"
+map:
+  center: [138.73, 35.36]
+  zoom: 8
+  bearing: 0
+  pitch: 0
+resources:
+  design-plan:
+    file: "https://cdn.jsdelivr.net/gh/tjmsy/sandbox/docs/terrain-hunt/design-set/design-plan.yml"
+  symbol-palette:
+    file: "https://cdn.jsdelivr.net/gh/tjmsy/sandbox/docs/terrain-hunt/design-set/symbol-palette.yml"
+  color-palette:
+    file: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles@0.4/palettes/isom2017/color-palette.yml"
+  image-palette:
+    file: "https://cdn.jsdelivr.net/gh/tjmsy/isomizer-projectfiles@0.4/palettes/isom2017/image-palette.yml"
