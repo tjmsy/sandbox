@@ -466,8 +466,7 @@ symbol-palette:
         - 0.5
         - 20
         - 18
-    paint:
-      fill-opacity: 0.5
+      line-opacity: 0.5
     property:
       color-key: overlay.purple
   - symbol_id: 502-2-highway-motorway-outline
