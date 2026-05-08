@@ -120,8 +120,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#FFFF00",
-        "fill-opacity": 0.5,
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -135,8 +134,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#4DC4FF",
-        "fill-opacity": 0.5,
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -150,8 +148,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#f71212",
-        "fill-opacity": 0.5,
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -165,8 +162,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#005AFF",
-        "fill-opacity": 0.5,
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -180,8 +176,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#FF9933",
-        "fill-opacity": 0.5,
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -195,7 +190,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#89FAC2",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -209,7 +204,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#FFFF00",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -223,7 +218,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#fd9191",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -237,7 +232,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#03AF7A",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -251,7 +246,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#FFCABF",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -265,7 +260,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#BFBFBF",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -282,7 +277,7 @@ map.on("load", async () => {
       },
       paint: {
         "fill-color": "#BFBFBF",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       filter: ["==", "森林簿樹種1", "新植地"],
     });
@@ -293,7 +288,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#000000",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -307,7 +302,7 @@ map.on("load", async () => {
       "source-layer": "全国森林資源メッシュ",
       paint: {
         "fill-color": "#BFBFBF",
-        "fill-opacity": 0.5,
+        "fill-opacity": 0.4,
       },
       layout: {
         visibility: "none",
@@ -335,85 +330,85 @@ map.on("load", async () => {
         id: "スギ",
         name: "スギ",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "ヒノキ類",
         name: "ヒノキ類",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "広葉樹",
         name: "広葉樹",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "伐採跡地",
         name: "伐採跡地",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "マツ類",
         name: "マツ類",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "カラマツ",
         name: "カラマツ",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "トドマツ",
         name: "トドマツ",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "エゾマツ",
         name: "エゾマツ",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "ヒバ",
         name: "ヒバ",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "その他針葉樹",
         name: "その他針葉樹",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "タケ",
         name: "タケ",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "針広混交林",
         name: "針広混交林",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "新植地",
         name: "新植地",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
       {
         id: "その他",
         name: "その他",
         visible: false,
-        opacity: 0.5,
+        opacity: 0.4
       },
     ],
     position: "top-left",
