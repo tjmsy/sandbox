@@ -4,12 +4,18 @@ class TerrainStatControl {
       demTileUrl: options.demTileUrl,
       slopeTileUrl: options.slopeTileUrl,
       demEncoding: options.demEncoding,
+
+      // optional
+      demSource: options.demSource,
+
       ...options,
     };
 
     this._onMoveEnd = this._onMoveEnd.bind(this);
 
-    // bins
+    this._lastTileKey = null;
+    this._requestId = 0;
+
     this.slopeBins = [
       [0, 5],
       [5, 10],
@@ -26,8 +32,8 @@ class TerrainStatControl {
 
   onAdd(map) {
     this.map = map;
-    this._buildUI();
 
+    this._buildUI();
     this._renderEmpty();
 
     map.on("moveend", this._onMoveEnd);
@@ -41,13 +47,17 @@ class TerrainStatControl {
   onRemove() {
     this.map.off("moveend", this._onMoveEnd);
     this.map.off("zoomend", this._onMoveEnd);
+
     this.container.remove();
+
     this.map = undefined;
   }
 
   _buildUI() {
     const container = document.createElement("div");
+
     container.className = "maplibregl-ctrl maplibregl-ctrl-group";
+
     container.style.padding = "8px";
     container.style.fontSize = "12px";
     container.style.background = "white";
@@ -57,6 +67,7 @@ class TerrainStatControl {
     this.container = container;
 
     this.content = document.createElement("div");
+
     container.appendChild(this.content);
   }
 
@@ -68,6 +79,7 @@ class TerrainStatControl {
 
     this.slopeBins.forEach(([min, max]) => {
       const label = max === Infinity ? `${min}°+` : `${min}°–${max}°`;
+
       html += `<div>${label}: -</div>`;
     });
 
@@ -77,21 +89,40 @@ class TerrainStatControl {
   async _onMoveEnd() {
     const tiles = this._getVisibleTiles();
 
-    const demStats = await this._computeDEM(tiles);
-    const slopeStats = await this._computeSlope(tiles);
+    const tileKey = JSON.stringify(tiles);
 
-    this._render(demStats, slopeStats);
+    if (tileKey === this._lastTileKey) {
+      return;
+    }
+
+    this._lastTileKey = tileKey;
+
+    const requestId = ++this._requestId;
+
+    requestIdleCallback(async () => {
+      const demStats = await this._computeDEM(tiles);
+      const slopeStats = await this._computeSlope(tiles);
+
+      if (requestId !== this._requestId) {
+        return;
+      }
+
+      this._render(demStats, slopeStats);
+    });
   }
 
   _getVisibleTiles() {
     const bounds = this.map.getBounds();
+
     const zoom = Math.floor(this.map.getZoom());
 
     const tiles = [];
+
     const tileCount = Math.pow(2, zoom);
 
     const lngLatToTile = (lng, lat) => {
       const x = ((lng + 180) / 360) * tileCount;
+
       const y =
         ((1 -
           Math.log(
@@ -102,29 +133,95 @@ class TerrainStatControl {
           2) *
         tileCount;
 
-      return { x: Math.floor(x), y: Math.floor(y) };
+      return {
+        x: Math.floor(x),
+        y: Math.floor(y),
+      };
     };
 
     const nw = lngLatToTile(bounds.getWest(), bounds.getNorth());
+
     const se = lngLatToTile(bounds.getEast(), bounds.getSouth());
 
     for (let x = nw.x; x <= se.x; x++) {
       for (let y = nw.y; y <= se.y; y++) {
-        tiles.push({ z: zoom, x, y });
+        tiles.push({
+          z: zoom,
+          x,
+          y,
+        });
       }
     }
+
     return tiles;
   }
 
   async _computeDEM(tiles) {
+    // -------------------------
+    // shared DEM path
+    // -------------------------
+
+    if (this.options.demSource) {
+      return this._computeDEMFromSharedCache(tiles);
+    }
+
+    // -------------------------
+    // fallback: URL tiles
+    // -------------------------
+
+    return this._computeDEMFromURL(tiles);
+  }
+
+  async _computeDEMFromSharedCache(tiles) {
+    let min = Infinity;
+    let max = -Infinity;
+
+    await Promise.all(
+      tiles.map(async (t) => {
+        try {
+          const abortController = new AbortController();
+
+          const demTile =
+            await this.options.demSource.manager.fetchAndParseTile(
+              t.z,
+              t.x,
+              t.y,
+              abortController,
+            );
+
+          const data = demTile.data;
+
+          for (let i = 0; i < data.length; i++) {
+            const elevation = data[i];
+
+            if (!isFinite(elevation)) continue;
+
+            if (elevation < min) min = elevation;
+
+            if (elevation > max) max = elevation;
+          }
+        } catch {}
+      }),
+    );
+
+    return {
+      min,
+      max,
+      diff: max - min,
+    };
+  }
+
+  async _computeDEMFromURL(tiles) {
     let min = Infinity;
     let max = -Infinity;
 
     await Promise.all(
       tiles.map(async (t) => {
         const url = this._tileURL(this.options.demTileUrl, t);
+
         try {
           const img = await this._loadImage(url);
+
           const data = this._getImageData(img);
 
           for (let i = 0; i < data.length; i += 4) {
@@ -134,15 +231,18 @@ class TerrainStatControl {
 
             let elevation;
 
-            if (this.options.demEncoding == "terrarium") {
+            if (this.options.demEncoding === "terrarium") {
               elevation = this._decodeTerrarium(r, g, b);
             }
 
-            if (this.options.demEncoding == "mapbox") {
+            if (this.options.demEncoding === "mapbox") {
               elevation = this._decodeTerrainRGB(r, g, b);
             }
 
+            if (!isFinite(elevation)) continue;
+
             if (elevation < min) min = elevation;
+
             if (elevation > max) max = elevation;
           }
         } catch {}
@@ -158,25 +258,31 @@ class TerrainStatControl {
 
   async _computeSlope(tiles) {
     const bins = new Array(this.slopeBins.length).fill(0);
+
     let total = 0;
 
     await Promise.all(
       tiles.map(async (t) => {
         const url = this._tileURL(this.options.slopeTileUrl, t);
+
         try {
           const img = await this._loadImage(url);
+
           const data = this._getImageData(img);
 
           for (let i = 0; i < data.length; i += 4) {
             const v = data[i];
+
             if (v === 0) continue;
 
             const slope = ((255 - v) / 255) * 90;
 
             for (let b = 0; b < this.slopeBins.length; b++) {
               const [min, max] = this.slopeBins[b];
+
               if (slope >= min && slope < max) {
                 bins[b]++;
+
                 break;
               }
             }
@@ -189,6 +295,7 @@ class TerrainStatControl {
 
     return bins.map((count, i) => {
       const pct = total ? (count / total) * 100 : 0;
+
       return {
         range: this.slopeBins[i],
         pct,
@@ -209,6 +316,7 @@ class TerrainStatControl {
 
     slope.forEach((b) => {
       const [min, max] = b.range;
+
       const label = max === Infinity ? `${min}°+` : `${min}°–${max}°`;
 
       html += `<div>${label}: ${b.pct.toFixed(1)}%</div>`;
@@ -224,22 +332,30 @@ class TerrainStatControl {
   _loadImage(url) {
     return new Promise((resolve, reject) => {
       const img = new Image();
+
       img.crossOrigin = "anonymous";
+
       img.onload = () => resolve(img);
+
       img.onerror = reject;
+
       img.src = url;
     });
   }
 
   _getImageData(img) {
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
+    if (!this.canvas) {
+      this.canvas = document.createElement("canvas");
 
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
+      this.ctx = this.canvas.getContext("2d");
+    }
 
-    return ctx.getImageData(0, 0, img.width, img.height).data;
+    this.canvas.width = img.width;
+    this.canvas.height = img.height;
+
+    this.ctx.drawImage(img, 0, 0);
+
+    return this.ctx.getImageData(0, 0, img.width, img.height).data;
   }
 
   _decodeTerrarium(r, g, b) {
