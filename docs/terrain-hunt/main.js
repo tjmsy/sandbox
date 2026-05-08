@@ -430,7 +430,7 @@ map.on("load", async () => {
 
   map.addControl(
     new TerrainStatControl({
-      demTileUrl: "https://tiles.mapterhorn.com/{z}/{x}/{y}.webp",
+      demSource,
       slopeTileUrl:
         "https://cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png",
       demEncoding: "terrarium",
