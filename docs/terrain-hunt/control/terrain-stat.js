@@ -101,8 +101,7 @@ class TerrainStatControl {
 
     this._render(demStats, slopeStats);
 
-    window.debugLog("moveend");
-    window.debugLog("tile count", tiles.length);
+
   }
 
   _getVisibleTiles() {
@@ -166,14 +165,11 @@ class TerrainStatControl {
     await Promise.all(
       tiles.map(async (t) => {
         try {
-          window.debugLog("fetchAndParseTile", t.z, t.x, t.y);
-
           const demTile =
             await this.options.demSource.manager.fetchAndParseTile(
               t.z,
               t.x,
               t.y,
-              abortController,
             );
 
           const data = demTile.data;
