@@ -81,8 +81,6 @@ map.on("load", async () => {
     tiles: [
       "https://rinya-tiles.geospatial.jp/fr_mesh20m_pbf_2025/{z}/{x}/{y}.pbf",
     ],
-    minzoom: 13,
-    maxzoom: 16,
     attribution:
       "<a href='https://www.geospatial.jp/ckan/dataset/mesh_tile' target='_blank'>全国森林資源メッシュマップタイル</a>",
   });
