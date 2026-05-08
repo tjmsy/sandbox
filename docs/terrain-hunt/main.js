@@ -56,6 +56,14 @@ map.on("load", async () => {
       "<a href='https://mapterhorn.com/attribution' target='_blank'>© Mapterhorn</a>",
   });
 
+  map.addSource("gsi-std", {
+    type: "raster",
+    tiles: ["https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png"],
+    tileSize: 256,
+    attribution:
+      "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+  });
+
   map.addSource("seamlessphoto", {
     type: "raster",
     tiles: [
@@ -83,6 +91,18 @@ map.on("load", async () => {
     await isomizer(map, projectConfigUrl);
 
     map.addLayer({
+      id: "gsi-std",
+      type: "raster",
+      source: "gsi-std",
+      layout: {
+        visibility: "none",
+      },
+      paint: {
+        "raster-opacity": 1.0,
+      },
+    });
+
+    map.addLayer({
       id: "seamlessphoto",
       type: "raster",
       source: "seamlessphoto",
@@ -91,7 +111,7 @@ map.on("load", async () => {
         visibility: "none",
       },
       paint: {
-        "raster-opacity": 0.5,
+        "raster-opacity": 1.0,
       },
     });
 
@@ -296,18 +316,22 @@ map.on("load", async () => {
       },
       filter: ["==", "森林簿樹種1", "その他"],
     });
-
-    map.moveLayer("101-contour-contour-source-contours");
   });
 
   const layerManager = new LayerManager({
     title: "Panel",
     layers: [
       {
+        id: "gsi-std",
+        name: "標準地図(地理院タイル)",
+        visible: false,
+        opacity: 1.0,
+      },
+      {
         id: "seamlessphoto",
         name: "シームレス航空写真",
         visible: false,
-        opacity: 0.5,
+        opacity: 1.0,
       },
       {
         id: "スギ",
