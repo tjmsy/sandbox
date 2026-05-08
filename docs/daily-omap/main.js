@@ -57,8 +57,8 @@ const geocoderApi = {
 
 map.on("load", async () => {
   const demSource = new mlcontour.DemSource({
-    url: "https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png",
-    encoding: "numpng",
+    url: "https://tiles.mapterhorn.com/{z}/{x}/{y}.webp",
+    encoding: "terrarium",
     minzoom: 0,
     maxzoom: 15,
     worker: true,
