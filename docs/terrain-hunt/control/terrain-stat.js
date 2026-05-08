@@ -96,12 +96,10 @@ class TerrainStatControl {
 
     this._lastTileKey = tileKey;
 
-    requestIdleCallback(async () => {
-      const demStats = await this._computeDEM(tiles);
-      const slopeStats = await this._computeSlope(tiles);
+    const demStats = await this._computeDEM(tiles);
+    const slopeStats = await this._computeSlope(tiles);
 
-      this._render(demStats, slopeStats);
-    });
+    this._render(demStats, slopeStats);
   }
 
   _getVisibleTiles() {
