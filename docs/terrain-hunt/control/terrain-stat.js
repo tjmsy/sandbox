@@ -166,8 +166,6 @@ class TerrainStatControl {
     await Promise.all(
       tiles.map(async (t) => {
         try {
-          const abortController = new AbortController();
-
           window.debugLog("fetchAndParseTile", t.z, t.x, t.y);
 
           const demTile =
@@ -338,20 +336,23 @@ class TerrainStatControl {
     });
   }
 
-  _getImageData(img) {
-    if (!this.canvas) {
-      this.canvas = document.createElement("canvas");
+_getImageData(img) {
+  const canvas = document.createElement("canvas");
 
-      this.ctx = this.canvas.getContext("2d");
-    }
+  canvas.width = img.width;
+  canvas.height = img.height;
 
-    this.canvas.width = img.width;
-    this.canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
 
-    this.ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0);
 
-    return this.ctx.getImageData(0, 0, img.width, img.height).data;
-  }
+  return ctx.getImageData(
+    0,
+    0,
+    img.width,
+    img.height,
+  ).data;
+}
 
   _decodeTerrarium(r, g, b) {
     return r * 256 + g + b / 256 - 32768;
