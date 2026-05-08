@@ -100,6 +100,9 @@ class TerrainStatControl {
     const slopeStats = await this._computeSlope(tiles);
 
     this._render(demStats, slopeStats);
+
+    window.debugLog("moveend");
+    window.debugLog("tile count", tiles.length);
   }
 
   _getVisibleTiles() {
@@ -165,6 +168,8 @@ class TerrainStatControl {
         try {
           const abortController = new AbortController();
 
+          window.debugLog("fetchAndParseTile", t.z, t.x, t.y);
+
           const demTile =
             await this.options.demSource.manager.fetchAndParseTile(
               t.z,
@@ -184,7 +189,9 @@ class TerrainStatControl {
 
             if (elevation > max) max = elevation;
           }
-        } catch {}
+        } catch (e) {
+          window.debugLog("shared DEM error", e);
+        }
       }),
     );
 
@@ -229,7 +236,9 @@ class TerrainStatControl {
 
             if (elevation > max) max = elevation;
           }
-        } catch {}
+        } catch (e) {
+          window.debugLog("DEM URL error", e);
+        }
       }),
     );
 
@@ -273,7 +282,9 @@ class TerrainStatControl {
 
             total++;
           }
-        } catch {}
+        } catch (e) {
+          window.debugLog("slope error", e);
+        }
       }),
     );
 

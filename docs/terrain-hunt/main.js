@@ -9,6 +9,70 @@ const query = new URLSearchParams(window.location.search);
 const projectConfigUrl =
   query.get("project") ?? "./design-set/project-config.yml";
 
+window.debugLog = function (...args) {
+  console.log(...args);
+
+  if (!window.__debugEl) {
+    const el = document.createElement("div");
+
+    el.style.position = "fixed";
+    el.style.right = "0";
+    el.style.bottom = "0";
+    el.style.zIndex = "99999";
+
+    el.style.maxWidth = "50vw";
+    el.style.maxHeight = "30vh";
+
+    el.style.overflow = "auto";
+
+    el.style.padding = "4px";
+
+    el.style.background = "rgba(0,0,0,0.7)";
+    el.style.color = "white";
+
+    el.style.fontSize = "10px";
+    el.style.fontFamily = "monospace";
+
+    el.style.whiteSpace = "pre-wrap";
+
+    document.body.appendChild(el);
+
+    window.__debugEl = el;
+  }
+
+  const text = args
+    .map((a) => {
+      if (a instanceof Error) {
+        return `${a.name}: ${a.message}\n${a.stack}`;
+      }
+
+      if (typeof a === "object") {
+        try {
+          return JSON.stringify(a);
+        } catch {
+          return String(a);
+        }
+      }
+
+      return String(a);
+    })
+    .join(" ");
+
+  window.__debugEl.textContent += `${text}\n`;
+
+  if (window.__debugEl.textContent.length > 5000) {
+    window.__debugEl.textContent = window.__debugEl.textContent.slice(-5000);
+  }
+};
+
+window.addEventListener("error", (e) => {
+  window.debugLog("window.error", e.error || e.message);
+});
+
+window.addEventListener("unhandledrejection", (e) => {
+  window.debugLog("unhandledrejection", e.reason);
+});
+
 const map = new maplibregl.Map({
   container: "map",
   style: {
