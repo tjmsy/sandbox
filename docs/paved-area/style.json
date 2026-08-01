@@ -1,0 +1,2002 @@
+{
+  "version": 8,
+  "sources": {
+    "ofm": {
+      "type": "vector",
+      "url": "https://tiles.openfreemap.org/planet"
+    },
+    "gsivt": {
+      "type": "vector",
+      "attribution": "<a href='https://maps.gsi.go.jp/development/vt.html' target='_blank'>国土地理院ベクトルタイル</a>",
+      "tiles": [
+        "https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf"
+      ],
+      "maxzoom": 16
+    },
+    "road-polygon": {
+      "type": "vector",
+      "tiles": [
+        "https://road-polygon-generator--main.tjmsy.deno.net/tiles/{z}/{x}/{y}.pbf"
+      ],
+      "minzoom": 15,
+      "maxzoom": 16
+    },
+    "fude": {
+      "type": "vector",
+      "attribution": "<a href='https://github.com/optgeo/ag?tab=readme-ov-file#%E5%87%BA%E5%85%B8' target='_blank'>筆ポリゴン(農林水産省)</a>",
+      "tiles": [
+        "https://optgeo.github.io/ag-tiles/zxy/{z}/{x}/{y}.pbf"
+      ],
+      "minzoom": 11,
+      "maxzoom": 13
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "minzoom": 8,
+      "paint": {
+        "background-color": "#98B010"
+      },
+      "metadata": {
+        "isomizer:order": 0
+      }
+    },
+    {
+      "id": "520-out-of-bounds-ofm-landuse",
+      "type": "fill",
+      "minzoom": 8,
+      "paint": {
+        "fill-color": "#98B010"
+      },
+      "source": "ofm",
+      "source-layer": "landuse",
+      "filter": [
+        "in",
+        "class",
+        "residential",
+        "neighbourhood",
+        "suburb",
+        "commercial",
+        "industrial",
+        "cemetery",
+        "hospital",
+        "school",
+        "railway",
+        "retail",
+        "military",
+        "quarter"
+      ],
+      "metadata": {
+        "isomizer:order": 1
+      }
+    },
+    {
+      "id": "park-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#FFFFFF"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "any",
+        [
+          "in",
+          "class",
+          "park"
+        ],
+        [
+          "in",
+          "subclass",
+          "park"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 3
+      }
+    },
+    {
+      "id": "405-forest-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#FFFFFF"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "any",
+        [
+          "in",
+          "class",
+          "forest",
+          "wood",
+          "tree"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 3
+      }
+    },
+    {
+      "id": "208-boulder-field-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-pattern": "boulder-field-pattern"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "rock"
+        ],
+        [
+          "in",
+          "subclass",
+          "scree"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 5
+      }
+    },
+    {
+      "id": "408-vegetation-walk-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#84EF73"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "any",
+        [
+          "==",
+          "subclass",
+          "scrub"
+        ],
+        [
+          "==",
+          "wood:density",
+          "dense"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 7
+      }
+    },
+    {
+      "id": "403-rough-open-land-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#FFDD9A"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "in",
+        "subclass",
+        "meadow",
+        "grassland",
+        "heath",
+        "logging"
+      ],
+      "metadata": {
+        "isomizer:order": 9
+      }
+    },
+    {
+      "id": "213-sandy-ground-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-pattern": "sandy-ground-pattern"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "in",
+        "class",
+        "sand"
+      ],
+      "metadata": {
+        "isomizer:order": 11
+      }
+    },
+    {
+      "id": "401-open-land-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#FFC048"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "grass"
+        ],
+        [
+          "!=",
+          "subclass",
+          "golf_course"
+        ],
+        [
+          "!=",
+          "subclass",
+          "scrub"
+        ],
+        [
+          "!=",
+          "subclass",
+          "park"
+        ],
+        [
+          "!=",
+          "subclass",
+          "garden"
+        ],
+        [
+          "!=",
+          "subclass",
+          "meadow"
+        ],
+        [
+          "!=",
+          "subclass",
+          "grassland"
+        ],
+        [
+          "!=",
+          "subclass",
+          "heath"
+        ],
+        [
+          "!=",
+          "subclass",
+          "logging"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 12
+      }
+    },
+    {
+      "id": "412-cultivated-land-fude-farmland",
+      "type": "fill",
+      "paint": {
+        "fill-pattern": "cultivated-land-pattern"
+      },
+      "source": "fude",
+      "source-layer": "farmland",
+      "metadata": {
+        "isomizer:order": 13
+      }
+    },
+    {
+      "id": "413-orchard-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-pattern": "orchard-pattern"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "in",
+        "subclass",
+        "orchard",
+        "vineyard"
+      ],
+      "metadata": {
+        "isomizer:order": 14
+      }
+    },
+    {
+      "id": "214-bare-rock-ofm-landcover",
+      "type": "fill",
+      "minzoom": 7,
+      "paint": {
+        "fill-color": "#BFBFBF"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "==",
+        "subclass",
+        "bare_rock"
+      ],
+      "metadata": {
+        "isomizer:order": 100
+      }
+    },
+    {
+      "id": "301-1-water-boundary-gsivt-coastline",
+      "type": "line",
+      "layout": {
+        "line-join": "bevel",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 2.1
+      },
+      "source": "gsivt",
+      "source-layer": "coastline",
+      "metadata": {
+        "isomizer:order": 103
+      }
+    },
+    {
+      "id": "301-1-water-boundary-gsivt-river-1",
+      "type": "line",
+      "layout": {
+        "line-join": "bevel",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 2.1
+      },
+      "source": "gsivt",
+      "source-layer": "river",
+      "filter": [
+        "in",
+        "ftCode",
+        5201,
+        5202,
+        5203
+      ],
+      "metadata": {
+        "isomizer:order": 103
+      }
+    },
+    {
+      "id": "301-1-water-boundary-gsivt-lake-2",
+      "type": "line",
+      "layout": {
+        "line-join": "bevel",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 2.1
+      },
+      "source": "gsivt",
+      "source-layer": "lake",
+      "filter": [
+        "in",
+        "ftCode",
+        5231,
+        5232,
+        5233
+      ],
+      "metadata": {
+        "isomizer:order": 103
+      }
+    },
+    {
+      "id": "301-uncrossable-water-gsivt-waterarea",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#40E0E0"
+      },
+      "source": "gsivt",
+      "source-layer": "waterarea",
+      "metadata": {
+        "isomizer:order": 105
+      }
+    },
+    {
+      "id": "304-crossable-watercourse-gsivt-river",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#40E0E0",
+        "line-width": 1.7
+      },
+      "source": "gsivt",
+      "source-layer": "river",
+      "filter": [
+        "in",
+        "ftCode",
+        5301
+      ],
+      "metadata": {
+        "isomizer:order": 105
+      }
+    },
+    {
+      "id": "306-minor-seasonal-water-channel-gsivt-river",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#40E0E0",
+        "line-width": 1,
+        "line-dasharray": [
+          7.1,
+          1.4
+        ]
+      },
+      "source": "gsivt",
+      "source-layer": "river",
+      "filter": [
+        "in",
+        "ftCode",
+        5302
+      ],
+      "metadata": {
+        "isomizer:order": 105
+      }
+    },
+    {
+      "id": "520-out-of-bounds-pier-ofm-transportation",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#98B010"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "any",
+        [
+          "in",
+          "class",
+          "pier"
+        ],
+        [
+          "all",
+          [
+            "==",
+            "$type",
+            "Polygon"
+          ],
+          [
+            "in",
+            "brunnel",
+            "bridge"
+          ]
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 106
+      }
+    },
+    {
+      "id": "307-uncrossable-marsh-ofm-landcover",
+      "type": "fill",
+      "paint": {
+        "fill-pattern": "marsh-pattern"
+      },
+      "source": "ofm",
+      "source-layer": "landcover",
+      "filter": [
+        "in",
+        "class",
+        "wetland",
+        "marsh"
+      ],
+      "metadata": {
+        "isomizer:order": 107
+      }
+    },
+    {
+      "id": "501-paved-area-casing-ofm-landuse",
+      "type": "line",
+      "maxzoom": 15,
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 2.7
+      },
+      "source": "ofm",
+      "source-layer": "landuse",
+      "filter": [
+        "in",
+        "class",
+        "pitch",
+        "track",
+        "playground"
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "501-paved-area-pedestrian-casing-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 2.7
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "==",
+          "$type",
+          "Polygon"
+        ],
+        [
+          "!=",
+          "subclass",
+          "platform"
+        ],
+        [
+          "!=",
+          "class",
+          "pier"
+        ],
+        [
+          "!=",
+          "brunnel",
+          "bridge"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "502-2-aeroway-taxiway-outline-ofm-aeroway",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              1.5
+            ],
+            [
+              14,
+              2
+            ],
+            [
+              15,
+              10
+            ],
+            [
+              16,
+              14
+            ],
+            [
+              18,
+              20
+            ],
+            [
+              20,
+              40
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "aeroway",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "taxiway"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "502-2-aeroway-runway-outline-ofm-aeroway",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              11,
+              0
+            ],
+            [
+              12,
+              6
+            ],
+            [
+              13,
+              9
+            ],
+            [
+              14,
+              16
+            ],
+            [
+              15,
+              24
+            ],
+            [
+              16,
+              40
+            ],
+            [
+              18,
+              160
+            ],
+            [
+              20,
+              300
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "aeroway",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "runway"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "502-2-highway-minor-outline-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              1.5
+            ],
+            [
+              14,
+              3.5
+            ],
+            [
+              17,
+              8
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "minor",
+          "service"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "502-2-highway-secondary-outline-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              1.5
+            ],
+            [
+              14,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              19,
+              68
+            ],
+            [
+              20,
+              138
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "secondary"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "502-2-highway-tertiary-outline-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              1.5
+            ],
+            [
+              14,
+              7
+            ],
+            [
+              16,
+              7
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              18,
+              26
+            ],
+            [
+              19,
+              64
+            ],
+            [
+              20,
+              128
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "tertiary"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "502-2-highway-primary-outline-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              8,
+              0
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              14,
+              6
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              19,
+              74
+            ],
+            [
+              20,
+              144
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "primary",
+          "trunk"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "502-2-highway-ramp-outline-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              12,
+              2
+            ],
+            [
+              14,
+              3
+            ],
+            [
+              16,
+              7
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              20,
+              40
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "==",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "primary",
+          "secondary",
+          "tertiary",
+          "trunk",
+          "motorway",
+          "minor",
+          "service"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 108
+      }
+    },
+    {
+      "id": "505-footpath-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 1.4,
+        "line-dasharray": [
+          11.4,
+          1.4
+        ]
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "$type",
+          "Polygon"
+        ],
+        [
+          "==",
+          "class",
+          "path"
+        ],
+        [
+          "!in",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "indoor",
+          1
+        ],
+        [
+          "!=",
+          "subclass",
+          "platform"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 109
+      }
+    },
+    {
+      "id": "501-paved-area-ofm-landuse",
+      "type": "fill",
+      "maxzoom": 15,
+      "paint": {
+        "fill-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "landuse",
+      "filter": [
+        "in",
+        "class",
+        "pitch",
+        "track",
+        "playground"
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "501-paved-area-gsi-road-polygon-road-surface",
+      "type": "fill",
+      "minzoom": 15,
+      "paint": {
+        "fill-color": "#F0C8B0"
+      },
+      "source": "road-polygon",
+      "source-layer": "road-surface",
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "501-paved-area-pedestrian-ofm-transportation",
+      "type": "fill",
+      "maxzoom": 15,
+      "paint": {
+        "fill-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "==",
+          "$type",
+          "Polygon"
+        ],
+        [
+          "!=",
+          "subclass",
+          "platform"
+        ],
+        [
+          "!=",
+          "class",
+          "pier"
+        ],
+        [
+          "!=",
+          "brunnel",
+          "bridge"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "502-1-aeroway-taxiway-center-ofm-aeroway",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              1
+            ],
+            [
+              15,
+              8
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              18,
+              18
+            ],
+            [
+              20,
+              36
+            ]
+          ]
+        },
+        "line-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "aeroway",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "taxiway"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "502-1-aeroway-runway-center-ofm-aeroway",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              11,
+              0
+            ],
+            [
+              12,
+              5
+            ],
+            [
+              13,
+              8
+            ],
+            [
+              14,
+              14
+            ],
+            [
+              15,
+              22
+            ],
+            [
+              16,
+              38
+            ],
+            [
+              18,
+              158
+            ],
+            [
+              20,
+              298
+            ]
+          ]
+        },
+        "line-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "aeroway",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "runway"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "502-1-highway-minor-center-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              2.5
+            ],
+            [
+              17,
+              6
+            ]
+          ]
+        },
+        "line-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "minor",
+          "service"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "502-1-highway-secondary-center-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              4
+            ],
+            [
+              16,
+              6
+            ],
+            [
+              18,
+              28
+            ],
+            [
+              19,
+              64
+            ],
+            [
+              20,
+              130
+            ]
+          ]
+        },
+        "line-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "secondary"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "502-1-highway-tertiary-center-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              5
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              18,
+              24
+            ],
+            [
+              19,
+              60
+            ],
+            [
+              20,
+              120
+            ]
+          ]
+        },
+        "line-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "tertiary"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "502-1-highway-primary-center-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              6,
+              0
+            ],
+            [
+              7,
+              1
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              9,
+              1
+            ],
+            [
+              10,
+              3
+            ],
+            [
+              14,
+              5
+            ],
+            [
+              16,
+              10
+            ],
+            [
+              18,
+              34
+            ],
+            [
+              19,
+              70
+            ],
+            [
+              20,
+              140
+            ]
+          ]
+        },
+        "line-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "primary",
+          "trunk"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "502-1-highway-ramp-center-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              12,
+              1
+            ],
+            [
+              14,
+              2
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              20,
+              38
+            ]
+          ]
+        },
+        "line-color": "#F0C8B0"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "==",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "primary",
+          "secondary",
+          "tertiary",
+          "trunk",
+          "motorway",
+          "minor",
+          "service"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 110
+      }
+    },
+    {
+      "id": "501-paved-area-casing-gsi-road-polygon-RdEdg",
+      "type": "line",
+      "minzoom": 15,
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 0.8
+      },
+      "source": "road-polygon",
+      "source-layer": "RdEdg",
+      "metadata": {
+        "isomizer:order": 111
+      }
+    },
+    {
+      "id": "501-paved-area-casing-gsi-road-polygon-RdCompt-1",
+      "type": "line",
+      "minzoom": 15,
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 0.8
+      },
+      "source": "road-polygon",
+      "source-layer": "RdCompt",
+      "filter": [
+        "!=",
+        "vt_code",
+        2401
+      ],
+      "metadata": {
+        "isomizer:order": 111
+      }
+    },
+    {
+      "id": "502-2-highway-motorway-outline-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              14,
+              5
+            ],
+            [
+              16,
+              14
+            ],
+            [
+              18,
+              38
+            ],
+            [
+              19,
+              84
+            ],
+            [
+              20,
+              168
+            ]
+          ]
+        },
+        "line-color": "#000000"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "motorway"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 111
+      }
+    },
+    {
+      "id": "502-1-highway-motorway-center-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-width": {
+          "stops": [
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              14,
+              4
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              19,
+              80
+            ],
+            [
+              20,
+              160
+            ]
+          ]
+        },
+        "line-color": "#E0A878"
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "ramp",
+          1
+        ],
+        [
+          "in",
+          "class",
+          "motorway"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 112
+      }
+    },
+    {
+      "id": "522-canopy-gsivt-building",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#CCCCCC"
+      },
+      "source": "gsivt",
+      "source-layer": "building",
+      "filter": [
+        "in",
+        "ftCode",
+        3111,
+        3112
+      ],
+      "metadata": {
+        "isomizer:order": 113
+      }
+    },
+    {
+      "id": "504-vehicle-track-ofm-transportation",
+      "type": "line",
+      "maxzoom": 15,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 2,
+        "line-dasharray": [
+          17.1,
+          1.4
+        ]
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "track"
+        ],
+        [
+          "!in",
+          "brunnel",
+          "tunnel"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 114
+      }
+    },
+    {
+      "id": "509-2-railway-outline-ofm-transportation",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 2.7
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "in",
+          "subclass",
+          "rail",
+          "light_rail",
+          "monorail"
+        ],
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 114
+      }
+    },
+    {
+      "id": "509-3-tram-l-ofm-transportation",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-offset": 1.25,
+        "line-color": "#000000",
+        "line-width": 0.6
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "in",
+          "subclass",
+          "tram"
+        ],
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 114
+      }
+    },
+    {
+      "id": "509-3-tram-r-ofm-transportation",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-offset": -1.25,
+        "line-color": "#000000",
+        "line-width": 0.6
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "in",
+          "subclass",
+          "tram"
+        ],
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 114
+      }
+    },
+    {
+      "id": "509-1-railway-center-ofm-transportation",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#FFFFFF",
+        "line-width": 1.1,
+        "line-dasharray": [
+          3.8,
+          5.7
+        ]
+      },
+      "source": "ofm",
+      "source-layer": "transportation",
+      "filter": [
+        "all",
+        [
+          "in",
+          "subclass",
+          "rail",
+          "light_rail",
+          "monorail"
+        ],
+        [
+          "!=",
+          "brunnel",
+          "tunnel"
+        ]
+      ],
+      "metadata": {
+        "isomizer:order": 115
+      }
+    },
+    {
+      "id": "532-2-stairway-outline-gsivt-road",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#595959",
+        "line-width": 3.8
+      },
+      "source": "gsivt",
+      "source-layer": "road",
+      "filter": [
+        "in",
+        "ftCode",
+        2731,
+        2732,
+        2733
+      ],
+      "metadata": {
+        "isomizer:order": 116
+      }
+    },
+    {
+      "id": "532-1-stairway-center-gsivt-road",
+      "type": "line",
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#FFFFFF",
+        "line-width": 3,
+        "line-dasharray": [
+          0.8,
+          0.3
+        ]
+      },
+      "source": "gsivt",
+      "source-layer": "road",
+      "filter": [
+        "in",
+        "ftCode",
+        2731,
+        2732,
+        2733
+      ],
+      "metadata": {
+        "isomizer:order": 117
+      }
+    },
+    {
+      "id": "521-building-gsivt-building",
+      "type": "fill",
+      "minzoom": 14,
+      "paint": {
+        "fill-color": "#787878"
+      },
+      "source": "gsivt",
+      "source-layer": "building",
+      "filter": [
+        "in",
+        "ftCode",
+        3101,
+        3102,
+        3103
+      ],
+      "metadata": {
+        "isomizer:order": 118
+      }
+    },
+    {
+      "id": "521-1-building-outline-gsivt-building",
+      "type": "line",
+      "minzoom": 14,
+      "layout": {
+        "line-join": "miter",
+        "line-cap": "butt"
+      },
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 0.5
+      },
+      "source": "gsivt",
+      "source-layer": "building",
+      "filter": [
+        "in",
+        "ftCode",
+        3101,
+        3102,
+        3103,
+        3111,
+        3112
+      ],
+      "metadata": {
+        "isomizer:order": 119
+      }
+    }
+  ]
+}

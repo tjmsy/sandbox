@@ -1,0 +1,10 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="3.0px" height="3.0px"
+  viewBox="0 0 4.8 4.8">
+  <style type="text/css">
+    .st1 {
+    fill: #000000;
+    }
+  </style>
+  <rect fill="#ffba35" width="4.8" height="4.8" />
+  <circle class="st1" cx="2.4" cy="2.4" r="1.0" />
+</svg>
