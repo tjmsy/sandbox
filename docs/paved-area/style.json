@@ -16,7 +16,7 @@
     "road-polygon": {
       "type": "vector",
       "tiles": [
-        "https://road-polygon-generator--main.tjmsy.deno.net/tiles/{z}/{x}/{y}.pbf"
+        "https://road-polygon-generator.tjmsy.deno.net/tiles/{z}/{x}/{y}.pbf"
       ],
       "minzoom": 15,
       "maxzoom": 16
