@@ -4,8 +4,8 @@ import { setupPatternLoader } from "./addPatternImages.js";
 const map = new maplibregl.Map({
   container: "map",
   style: "./style.json",
-  center: [138.7307, 35.3595],
-  zoom: 9,
+  center: [139.764692, 35.681392],
+  zoom: 16,
   hash: true,
 });
 
